@@ -47,6 +47,23 @@ public class Bazi {
         return getNameRate(result);
     }
 
+    private static double getNameRate(int[] arr) {
+        if(arr.length == 2) {
+            System.out.printf("Affection Rate:%d%d%%!\n",arr[0],arr[1]);
+            return (10.0 * (arr[0] % 10 ) + (arr[1] % 10 )) / 100.0;
+        }
+        int[] next = new int[arr.length - 1];
+        for(int i = 0; i < next.length; i++) {
+            next[i] = (arr[i] + arr[i+1]) % 10;
+        }
+        return getNameRate(next);
+    }
+
+    /**
+     *Cosine value of two vectors could be calculated by
+     * Cosθ = dotProduct of A and B/ absolute value of A and B
+     *int[] a and b have same length
+     */
     private static double getBdayRate(int[] a, int[] b){
         double len1 = Math.sqrt((IntStream.of(a).map(x -> x*x).sum()));
         double len2 = Math.sqrt((IntStream.of(b).map(x -> x*x).sum()));
@@ -63,37 +80,6 @@ public class Bazi {
             "with on your names and birthdays, based on ancient and mysterious oriental metaphysics.\n" +
             "Now, let's begin.";
 
-    private static double getNameRate(int[] arr) {
-        if(arr.length == 2) {
-            System.out.printf("Affection Rate:%d%d%%!\n",arr[0],arr[1]);
-            return (10.0 * (arr[0] % 10 ) + (arr[1] % 10 )) / 100.0;
-        }
-        int[] next = new int[arr.length - 1];
-        for(int i = 0; i < next.length; i++) {
-            next[i] = (arr[i] + arr[i+1]) % 10;
-        }
-        return getNameRate(next);
-    }
-    /**
-     *Cosine value of two vectors could be calculated by
-     * Cosθ = dotProduct of A and B/ absolute value of A and B
-     *int[] a and b have same length
-     */
-    private static double getBirthdayRate(int[] a, int[] b) {
-        double dotProduct = 0.0;
-        double absValA = 0.0;
-        double absValB = 0.0;
-        double theta = 0.0;
-        for(int i = 0; i < a.length; i++) {
-            dotProduct += a[i]*b[i];
-            absValA += a[i]*a[i];
-            absValB += b[i]*b[i];
-        }
-        absValA = Math.sqrt(absValA);
-        absValB = Math.sqrt(absValB);
-        theta = dotProduct / (absValA * absValB);
-        return (theta+1) / 2;
-    }
     private static void printFinal(double r1, double r2) {
         double result = 0.3 * r1 + 0.7 * r2;
         System.out.printf("Final Affection Rate: %d%%!\n",(int) (result * 100));

@@ -49,7 +49,7 @@ public class Bazi {
 
     private static double getNameRate(int[] arr) {
         if(arr.length == 2) {
-            System.out.printf("Affection Rate:%d%d%%!\n",arr[0],arr[1]);
+            System.out.printf("Name Rate: %d%d%%!\n",arr[0],arr[1]);
             return (10.0 * (arr[0] % 10 ) + (arr[1] % 10 )) / 100.0;
         }
         int[] next = new int[arr.length - 1];
@@ -71,12 +71,14 @@ public class Bazi {
         for (int i = 0; i < 8; i++) {
             dotProduct += a[i] * b[i];
         }
-        return (dotProduct / len1 / len2 + 1) / 2;
+        double result = (dotProduct / len1 / len2 + 1) / 2;
+        System.out.printf("Birthday Rate: %d%d%%!\n", (int) (result*10), ((int) (result * 10)) % 10);
+        return result;
     }
 
     private static final String welcomeWords =
-            "Welcome to System Bazi(八字)!!\n" +
-            "This powerful system can calculate your \"match rate\" with your significant other\n" +
+            "Welcome to Moira!!\n" +
+            "This powerful system can calculate your \"affection rate\" with your significant other\n" +
             "with on your names and birthdays, based on ancient and mysterious oriental metaphysics.\n" +
             "Now, let's begin.";
 
